@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="include\ufmnext">
+      <UniqueIdentifier>{6d8fa9f0-264f-4d6b-95eb-959db9ec39e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ufmnext\gui">
+      <UniqueIdentifier>{7f1a34b1-8b22-4d1e-9821-2a135a58c14a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\gui">
+      <UniqueIdentifier>{9a77b81c-8e42-4f3e-827c-31a4732db441}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ufmnext\gui\DrawingCanvas.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\gui\MainWindow.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\gui\MdiChild.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\gui\QtDrawingContext.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\gui\ShapeToolboxWidget.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\gui\ThemeManager.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\gui\DrawingCanvas.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\MainWindow.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\MdiChild.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\QtDrawingContext.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\ShapeToolboxWidget.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\ThemeManager.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\main.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
