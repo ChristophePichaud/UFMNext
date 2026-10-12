@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="include\ufmnext">
+      <UniqueIdentifier>{6d8fa9f0-264f-4d6b-95eb-959db9ec39e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ufmnext\core">
+      <UniqueIdentifier>{4e98f029-e853-4eb8-8120-cf7f0ecf62c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ufmnext\core\Point.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\Rect.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\Color.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\ShapeType.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\ConnectionPoint.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\IDrawingContext.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\Shape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\SquareShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\RoundRectangleShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\CircleShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\OvalShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\LineShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\StarShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\ArrowShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\Tracker.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\Document.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ufmnext\core\Serializer.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\Shape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\SquareShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\RoundRectangleShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\CircleShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\OvalShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\LineShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\StarShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\ArrowShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Tracker.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Document.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Serializer.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

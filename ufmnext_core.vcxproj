@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{A1B2C3D4-E5F6-4A7B-8C9D-0E1F2A3B4C5D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ufmnext_core</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ufmnext\core\Point.h" />
+    <ClInclude Include="include\ufmnext\core\Rect.h" />
+    <ClInclude Include="include\ufmnext\core\Color.h" />
+    <ClInclude Include="include\ufmnext\core\ShapeType.h" />
+    <ClInclude Include="include\ufmnext\core\ConnectionPoint.h" />
+    <ClInclude Include="include\ufmnext\core\IDrawingContext.h" />
+    <ClInclude Include="include\ufmnext\core\Shape.h" />
+    <ClInclude Include="include\ufmnext\core\SquareShape.h" />
+    <ClInclude Include="include\ufmnext\core\RoundRectangleShape.h" />
+    <ClInclude Include="include\ufmnext\core\CircleShape.h" />
+    <ClInclude Include="include\ufmnext\core\OvalShape.h" />
+    <ClInclude Include="include\ufmnext\core\LineShape.h" />
+    <ClInclude Include="include\ufmnext\core\StarShape.h" />
+    <ClInclude Include="include\ufmnext\core\ArrowShape.h" />
+    <ClInclude Include="include\ufmnext\core\Tracker.h" />
+    <ClInclude Include="include\ufmnext\core\Document.h" />
+    <ClInclude Include="include\ufmnext\core\Serializer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\Shape.cpp" />
+    <ClCompile Include="src\core\SquareShape.cpp" />
+    <ClCompile Include="src\core\RoundRectangleShape.cpp" />
+    <ClCompile Include="src\core\CircleShape.cpp" />
+    <ClCompile Include="src\core\OvalShape.cpp" />
+    <ClCompile Include="src\core\LineShape.cpp" />
+    <ClCompile Include="src\core\StarShape.cpp" />
+    <ClCompile Include="src\core\ArrowShape.cpp" />
+    <ClCompile Include="src\core\Tracker.cpp" />
+    <ClCompile Include="src\core\Document.cpp" />
+    <ClCompile Include="src\core\Serializer.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
