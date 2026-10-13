@@ -81,6 +81,10 @@ private:
     QAction* m_actExit{nullptr};
 
     QAction* m_actDelete{nullptr};
+    QAction* m_actCut{nullptr};
+    QAction* m_actCopy{nullptr};
+    QAction* m_actPaste{nullptr};
+    QAction* m_actSelectTool{nullptr};
     QAction* m_actBringForward{nullptr};
     QAction* m_actSendBackward{nullptr};
     QAction* m_actPaperSize{nullptr};
