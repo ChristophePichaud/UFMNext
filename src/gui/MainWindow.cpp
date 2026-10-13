@@ -76,7 +76,7 @@ void MainWindow::createActions() {
     m_actNew->setShortcut(QKeySequence::New);
     connect(m_actNew, &QAction::triggered, this, &MainWindow::newFile);
 
-    m_actOpen = new QAction(QIcon::fromTheme("document-open"), tr("&Open Raw Data..."), this);
+    m_actOpen = new QAction(QIcon::fromTheme("document-open"), tr("&Load..."), this);
     m_actOpen->setShortcut(QKeySequence::Open);
     connect(m_actOpen, &QAction::triggered, this, &MainWindow::openFile);
 
@@ -84,7 +84,7 @@ void MainWindow::createActions() {
     m_actSave->setShortcut(QKeySequence::Save);
     connect(m_actSave, &QAction::triggered, this, &MainWindow::saveFile);
 
-    m_actSaveAs = new QAction(QIcon::fromTheme("document-save-as"), tr("Save &As Raw Data..."), this);
+    m_actSaveAs = new QAction(QIcon::fromTheme("document-save-as"), tr("Save &As..."), this);
     connect(m_actSaveAs, &QAction::triggered, this, &MainWindow::saveAsRawData);
 
     m_actExportPng = new QAction(QIcon::fromTheme("image-x-generic"), tr("&Export Diagram as PNG..."), this);
@@ -104,6 +104,27 @@ void MainWindow::createActions() {
     m_actDelete = new QAction(QIcon::fromTheme("edit-delete"), tr("&Delete"), this);
     m_actDelete->setShortcut(QKeySequence::Delete);
     connect(m_actDelete, &QAction::triggered, this, &MainWindow::deleteSelectedShape);
+
+    auto withCanvas = [this](void (DrawingCanvas::*fn)()) {
+        return [this, fn]() {
+            if (auto* c = activeCanvas()) { (c->*fn)(); updateMenusAndToolbars(); }
+        };
+    };
+    m_actCut = new QAction(QIcon::fromTheme("edit-cut"), tr("Cu&t"), this);
+    m_actCut->setShortcut(QKeySequence::Cut);
+    connect(m_actCut, &QAction::triggered, this, withCanvas(&DrawingCanvas::CutSelection));
+    m_actCopy = new QAction(QIcon::fromTheme("edit-copy"), tr("&Copy"), this);
+    m_actCopy->setShortcut(QKeySequence::Copy);
+    connect(m_actCopy, &QAction::triggered, this, withCanvas(&DrawingCanvas::CopySelection));
+    m_actPaste = new QAction(QIcon::fromTheme("edit-paste"), tr("&Paste"), this);
+    m_actPaste->setShortcut(QKeySequence::Paste);
+    connect(m_actPaste, &QAction::triggered, this, withCanvas(&DrawingCanvas::Paste));
+
+    m_actSelectTool = new QAction(QIcon::fromTheme("edit-select"), tr("Select"), this);
+    m_actSelectTool->setToolTip(tr("Select, move and resize shapes"));
+    connect(m_actSelectTool, &QAction::triggered, this, [this]() {
+        if (m_toolbox) m_toolbox->SetSelectTool();
+    });
 
     m_actBringForward = new QAction(tr("Bring &Forward"), this);
     connect(m_actBringForward, &QAction::triggered, this, [this]() {
@@ -188,6 +209,11 @@ void MainWindow::createMenus() {
     menuFile->addAction(m_actExit);
 
     auto* menuEdit = menuBar()->addMenu(tr("&Edit"));
+    menuEdit->addAction(m_actSelectTool);
+    menuEdit->addSeparator();
+    menuEdit->addAction(m_actCut);
+    menuEdit->addAction(m_actCopy);
+    menuEdit->addAction(m_actPaste);
     menuEdit->addAction(m_actDelete);
     menuEdit->addSeparator();
     menuEdit->addAction(m_actBringForward);
@@ -244,6 +270,11 @@ void MainWindow::createToolbars() {
     // Edit Toolbar
     auto* tbEdit = addToolBar(tr("Edit"));
     tbEdit->setObjectName("EditToolBar");
+    tbEdit->addAction(m_actSelectTool);
+    tbEdit->addSeparator();
+    tbEdit->addAction(m_actCut);
+    tbEdit->addAction(m_actCopy);
+    tbEdit->addAction(m_actPaste);
     tbEdit->addAction(m_actDelete);
     tbEdit->addAction(m_actBringForward);
     tbEdit->addAction(m_actSendBackward);
@@ -406,6 +437,9 @@ void MainWindow::updateMenusAndToolbars() {
         m_lblShapeCount->setText(tr("Shapes: %1").arg(doc->GetShapes().size()));
         auto primary = doc->GetPrimarySelectedShape();
         m_actDelete->setEnabled(primary != nullptr);
+        m_actCut->setEnabled(primary != nullptr);
+        m_actCopy->setEnabled(primary != nullptr);
+        m_actPaste->setEnabled(DrawingCanvas::HasClipboard());
         m_actBringForward->setEnabled(primary != nullptr);
         m_actSendBackward->setEnabled(primary != nullptr);
 
@@ -424,6 +458,9 @@ void MainWindow::updateMenusAndToolbars() {
     } else {
         m_lblShapeCount->setText(tr("Shapes: 0"));
         m_actDelete->setEnabled(false);
+        m_actCut->setEnabled(false);
+        m_actCopy->setEnabled(false);
+        m_actPaste->setEnabled(false);
         m_actBringForward->setEnabled(false);
         m_actSendBackward->setEnabled(false);
     }
@@ -519,12 +556,8 @@ void MainWindow::deleteSelectedShape() {
     auto* canvas = activeCanvas();
     if (!canvas || !canvas->GetDocument()) return;
 
-    auto primary = canvas->GetDocument()->GetPrimarySelectedShape();
-    if (primary) {
-        canvas->GetDocument()->RemoveShape(primary->GetId());
-        canvas->update();
-        updateMenusAndToolbars();
-    }
+    canvas->DeleteSelection();
+    updateMenusAndToolbars();
 }
 
 void MainWindow::setPaperSizeDialog() {

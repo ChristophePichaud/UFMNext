@@ -49,6 +49,13 @@ public:
     void SetCurrentFontColor(const core::Color& c);
     void SetCurrentText(const std::string& text);
 
+    // Clipboard operations on the selected shapes
+    void CopySelection();
+    void CutSelection();
+    void Paste();
+    void DeleteSelection();
+    static bool HasClipboard();
+
     // Export & Print
     bool ExportToPng(const QString& filePath);
     void Print(QPrinter* printer);
@@ -78,6 +85,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event) override;
     void mouseDoubleClickEvent(QMouseEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
+    void contextMenuEvent(QContextMenuEvent* event) override;
     QSize sizeHint() const override;
 
 private:
@@ -119,6 +127,8 @@ private:
     core::Rect m_originalBounds{0.0, 0.0, 0.0, 0.0};
     std::shared_ptr<core::Shape> m_activeShape;
     core::SnapResult m_currentSnapResult;
+    core::Rect m_selectBox{0.0, 0.0, 0.0, 0.0};
+    int m_pasteCount{0};
 };
 
 } // namespace ufmnext::gui

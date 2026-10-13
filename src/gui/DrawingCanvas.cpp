@@ -9,6 +9,8 @@
 #include "ufmnext/core/ArrowShape.h"
 
 #include <QPainter>
+#include <QMenu>
+#include <QContextMenuEvent>
 #include <QPaintEvent>
 #include <QMouseEvent>
 #include <QWheelEvent>
@@ -17,6 +19,11 @@
 #include <cmath>
 
 namespace ufmnext::gui {
+
+namespace {
+// Application-wide clipboard shared by all drawing windows (vector of shared_ptr, like the document)
+std::vector<std::shared_ptr<core::Shape>> g_clipboard;
+}
 
 DrawingCanvas::DrawingCanvas(std::shared_ptr<core::Document> doc, QWidget* parent)
     : QWidget(parent)
@@ -234,6 +241,13 @@ void DrawingCanvas::paintEvent(QPaintEvent* event) {
         }
     }
 
+    // Draw rubber band rectangle of the multi-selection
+    if (m_dragMode == DragMode::SelectBox) {
+        painter.setPen(QPen(QColor(0, 120, 215), 1.0 / m_zoom, Qt::DashLine));
+        painter.setBrush(QColor(0, 120, 215, 40));
+        painter.drawRect(QRectF(m_selectBox.x, m_selectBox.y, m_selectBox.width, m_selectBox.height));
+    }
+
     // Draw snap indicator if active
     if (m_currentSnapResult.snapped) {
         drawSnapIndicator(painter, m_currentSnapResult.anchorPosition);
@@ -330,13 +344,18 @@ void DrawingCanvas::mousePressEvent(QMouseEvent* event) {
             // Hit test shapes
             auto hitShape = m_document->FindShapeAt(docPt, 5.0 / m_zoom);
             if (hitShape) {
-                m_document->SelectShape(hitShape->GetId(), !(event->modifiers() & Qt::ControlModifier));
+                if (!hitShape->IsSelected() || (event->modifiers() & Qt::ControlModifier)) {
+                    m_document->SelectShape(hitShape->GetId(), !(event->modifiers() & Qt::ControlModifier));
+                }
                 m_dragMode = DragMode::Move;
                 m_activeShape = hitShape;
                 emit selectionChanged();
             } else {
-                m_document->ClearSelection();
-                m_dragMode = DragMode::None;
+                if (!(event->modifiers() & Qt::ControlModifier)) {
+                    m_document->ClearSelection();
+                }
+                m_dragMode = DragMode::SelectBox;
+                m_selectBox = core::Rect(docPt.x, docPt.y, 0.0, 0.0);
                 emit selectionChanged();
             }
         }
@@ -404,9 +423,16 @@ void DrawingCanvas::mouseMoveEvent(QMouseEvent* event) {
     const core::Point docPt = WidgetToDoc(event->position());
     emit mouseMoved(docPt);
 
-    if (m_dragMode == DragMode::Move && m_activeShape) {
+    if (m_dragMode == DragMode::SelectBox) {
+        m_selectBox = core::Rect(std::min(m_dragStartDocPt.x, docPt.x), std::min(m_dragStartDocPt.y, docPt.y),
+                                 std::abs(docPt.x - m_dragStartDocPt.x), std::abs(docPt.y - m_dragStartDocPt.y));
+        update();
+    } else if (m_dragMode == DragMode::Move && m_activeShape) {
         const core::Point delta = docPt - m_lastDocPt;
-        m_activeShape->MoveBy(delta);
+        // Move every selected shape (multi-selection) together
+        for (const auto& sh : m_document->GetShapes()) {
+            if (sh && sh->IsSelected()) sh->MoveBy(delta);
+        }
         m_document->UpdateConnectedLines();
         m_document->SetModified(true);
         m_lastDocPt = docPt;
@@ -475,6 +501,15 @@ void DrawingCanvas::mouseMoveEvent(QMouseEvent* event) {
 void DrawingCanvas::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() != Qt::LeftButton) return;
 
+    if (m_dragMode == DragMode::SelectBox && m_document) {
+        for (const auto& sh : m_document->GetShapes()) {
+            if (sh && sh->GetBoundingBox().Intersects(m_selectBox)) {
+                m_document->SelectShape(sh->GetId(), false);
+            }
+        }
+        emit selectionChanged();
+    }
+
     if (m_dragMode == DragMode::Create && m_activeShape) {
         if (m_activeShape->GetType() == core::ShapeType::Line) {
             auto* line = dynamic_cast<core::LineShape*>(m_activeShape.get());
@@ -488,6 +523,82 @@ void DrawingCanvas::mouseReleaseEvent(QMouseEvent* event) {
     m_dragMode = DragMode::None;
     m_activeHandle = core::HandleId::None;
     update();
+}
+
+bool DrawingCanvas::HasClipboard() { return !g_clipboard.empty(); }
+
+void DrawingCanvas::CopySelection() {
+    if (!m_document) return;
+    const auto selected = m_document->GetSelectedShapes();
+    if (selected.empty()) return;
+    g_clipboard.clear();
+    for (const auto& sh : selected) {
+        g_clipboard.push_back(std::shared_ptr<core::Shape>(sh->Clone()));
+    }
+    m_pasteCount = 0;
+}
+
+void DrawingCanvas::DeleteSelection() {
+    if (!m_document) return;
+    for (const auto& sh : m_document->GetSelectedShapes()) {
+        m_document->RemoveShape(sh->GetId());
+    }
+    emit selectionChanged();
+    emit documentModified();
+    update();
+}
+
+void DrawingCanvas::CutSelection() {
+    CopySelection();
+    DeleteSelection();
+}
+
+void DrawingCanvas::Paste() {
+    if (!m_document || g_clipboard.empty()) return;
+    ++m_pasteCount;
+    const double offset = 20.0 * m_pasteCount;
+    m_document->ClearSelection();
+    for (const auto& src : g_clipboard) {
+        std::shared_ptr<core::Shape> copy(src->Clone());
+        copy->SetId(0);
+        copy->MoveBy(core::Point(offset, offset));
+        if (auto* line = dynamic_cast<core::LineShape*>(copy.get())) {
+            line->SetStartConnectedShapeId(0, -1);
+            line->SetEndConnectedShapeId(0, -1);
+        }
+        m_document->AddShape(copy);
+        m_document->SelectShape(copy->GetId(), false);
+    }
+    emit selectionChanged();
+    emit documentModified();
+    update();
+}
+
+void DrawingCanvas::contextMenuEvent(QContextMenuEvent* event) {
+    if (!m_document) return;
+    const core::Point docPt = WidgetToDoc(event->pos());
+    auto hit = m_document->FindShapeAt(docPt, 5.0 / m_zoom);
+    if (hit && !hit->IsSelected()) {
+        m_document->SelectShape(hit->GetId(), true);
+        emit selectionChanged();
+        update();
+    }
+    const bool hasSel = !m_document->GetSelectedShapes().empty();
+    QMenu menu(this);
+    QAction* actCut = menu.addAction(tr("Cu&t"));
+    QAction* actCopy = menu.addAction(tr("&Copy"));
+    QAction* actPaste = menu.addAction(tr("&Paste"));
+    menu.addSeparator();
+    QAction* actDelete = menu.addAction(tr("&Delete"));
+    actCut->setEnabled(hasSel);
+    actCopy->setEnabled(hasSel);
+    actDelete->setEnabled(hasSel);
+    actPaste->setEnabled(HasClipboard());
+    QAction* chosen = menu.exec(event->globalPos());
+    if (chosen == actCut) CutSelection();
+    else if (chosen == actCopy) CopySelection();
+    else if (chosen == actPaste) Paste();
+    else if (chosen == actDelete) DeleteSelection();
 }
 
 void DrawingCanvas::mouseDoubleClickEvent(QMouseEvent* event) {
