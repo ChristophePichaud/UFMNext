@@ -1,4 +1,5 @@
 #include "ufmnext/core/Serializer.h"
+#include "ufmnext/core/ShapeFactory.h"
 #include "ufmnext/core/SquareShape.h"
 #include "ufmnext/core/RoundRectangleShape.h"
 #include "ufmnext/core/CircleShape.h"
@@ -57,6 +58,9 @@ std::string Serializer::SerializeDocumentToRawData(const Document& doc) {
 
         os << "begin_shape\n";
         os << "type " << ShapeTypeToString(shape->GetType()) << "\n";
+        if (shape->GetType() == ShapeType::Custom) {
+            os << "class " << shape->GetClassName() << "\n";
+        }
         os << "id " << shape->GetId() << "\n";
         os << "x " << shape->GetX() << "\n";
         os << "y " << shape->GetY() << "\n";
@@ -174,9 +178,19 @@ bool Serializer::DeserializeDocumentFromRawData(const std::string& data, Documen
                 case ShapeType::Arrow:
                     currentShape = std::make_shared<ArrowShape>();
                     break;
+                case ShapeType::Custom:
+                    currentShape.reset(); // created by the following "class" line
+                    break;
                 default:
                     currentShape = std::make_shared<SquareShape>();
                     break;
+            }
+        } else if (key == "class") {
+            std::string className;
+            lineStream >> className;
+            currentShape = ShapeFactory::Instance().Create(className);
+            if (!currentShape) {
+                currentShape = std::make_shared<SquareShape>(); // unknown class (e.g. missing plugin)
             }
         } else if (currentShape) {
             if (key == "id") {

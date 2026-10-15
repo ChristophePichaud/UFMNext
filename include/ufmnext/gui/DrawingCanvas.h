@@ -38,7 +38,8 @@ public:
     void ZoomToFit();
 
     // Active tool
-    void SetTool(ToolMode mode, core::ShapeType type, core::LineCapStyle startCap, core::LineCapStyle endCap);
+    void SetTool(ToolMode mode, core::ShapeType type, core::LineCapStyle startCap, core::LineCapStyle endCap,
+                 const std::string& shapeClass = std::string());
 
     // Active style properties for new shapes or selected shape
     void SetCurrentOutlineColor(const core::Color& c);
@@ -107,6 +108,7 @@ private:
     // Tool state
     ToolMode m_toolMode{ToolMode::Select};
     core::ShapeType m_createShapeType{core::ShapeType::None};
+    std::string m_createShapeClass;
     core::LineCapStyle m_createStartCap{core::LineCapStyle::None};
     core::LineCapStyle m_createEndCap{core::LineCapStyle::None};
 

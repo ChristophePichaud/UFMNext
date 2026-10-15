@@ -43,6 +43,11 @@ set(CORE_HEADERS
     include/ufmnext/core/Tracker.h
     include/ufmnext/core/Document.h
     include/ufmnext/core/Serializer.h
+    include/ufmnext/core/ShapeFactory.h
+    include/ufmnext/core/UmlShapes.h
+    include/ufmnext/core/PictureShapes.h
+    include/ufmnext/core/Palette.h
+    include/ufmnext/core/PluginApi.h
 )
 
 set(CORE_SOURCES
@@ -57,7 +62,20 @@ set(CORE_SOURCES
     src/core/Tracker.cpp
     src/core/Document.cpp
     src/core/Serializer.cpp
+    src/core/ShapeFactory.cpp
+    src/core/UmlShapes.cpp
+    src/core/PictureShapes.cpp
+    src/core/Palette.cpp
 )
+
+# JSON support (nlohmann json): use an installed copy, otherwise download it
+find_package(nlohmann_json 3.2.0 QUIET)
+if(NOT nlohmann_json_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(nlohmann_json
+        URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+    FetchContent_MakeAvailable(nlohmann_json)
+endif()
 
 add_library(ufmnext_core STATIC ${CORE_HEADERS} ${CORE_SOURCES})
 
@@ -65,6 +83,8 @@ target_include_directories(ufmnext_core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
+
+target_link_libraries(ufmnext_core PRIVATE nlohmann_json::nlohmann_json)
 
 # -----------------------------------------------------------------------------
 # 2. Qt6 GUI Application
@@ -104,6 +124,14 @@ target_link_libraries(UFMNext PRIVATE
     Qt6::PrintSupport
 )
 
+# Palette description files (JSON), copied next to the executable
+add_custom_command(TARGET UFMNext POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/resources/palettes $<TARGET_FILE_DIR:UFMNext>/palettes
+)
+target_compile_definitions(UFMNext PRIVATE
+    UFMNEXT_PALETTES_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/resources/palettes")
+
 # Visual Studio IDE grouping
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
     ${CORE_HEADERS} ${CORE_SOURCES} ${GUI_HEADERS} ${GUI_SOURCES}
@@ -123,5 +151,8 @@ target_include_directories(ufmnext_tests PRIVATE
 target_link_libraries(ufmnext_tests PRIVATE
     ufmnext_core
 )
+
+target_compile_definitions(ufmnext_tests PRIVATE
+    UFMNEXT_PALETTES_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/resources/palettes")
 
 add_test(NAME CoreUnitTests COMMAND ufmnext_tests)

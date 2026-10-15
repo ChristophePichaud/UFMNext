@@ -12,6 +12,8 @@
 #include "ufmnext/core/Tracker.h"
 #include "ufmnext/core/Document.h"
 #include "ufmnext/core/Serializer.h"
+#include "ufmnext/core/ShapeFactory.h"
+#include "ufmnext/core/Palette.h"
 
 #include <iostream>
 #include <vector>
@@ -313,6 +315,61 @@ void TestSerializationRawData() {
     std::cout << "TestSerializationRawData PASSED!" << std::endl;
 }
 
+void TestShapeFactoryAndPalettes() {
+    auto& factory = ShapeFactory::Instance();
+    TEST_ASSERT(factory.Create("NoSuchShape") == nullptr);
+    for (const auto& name : factory.GetRegisteredNames()) {
+        auto shape = factory.Create(name);
+        TEST_ASSERT(shape != nullptr);
+        TEST_ASSERT(shape->GetClassName() == name);
+        TEST_ASSERT(shape->Clone()->GetClassName() == name);
+    }
+    TEST_ASSERT(factory.Create("StarShape")->GetType() == ShapeType::Star);
+    TEST_ASSERT(factory.Create("UmlClassShape")->GetType() == ShapeType::Custom);
+    TEST_ASSERT(!factory.Register("StarShape", [] { return std::make_shared<StarShape>(); }));
+    TEST_ASSERT(factory.Register("TestPluginShape", [] { return std::make_shared<SquareShape>(); }));
+
+    const std::string dir = UFMNEXT_PALETTES_SOURCE_DIR;
+    Palette uml, pics, shapes;
+    TEST_ASSERT(PaletteLoader::LoadFromFile(dir + "/uml.json", uml));
+    TEST_ASSERT(PaletteLoader::LoadFromFile(dir + "/pictures.json", pics));
+    TEST_ASSERT(PaletteLoader::LoadFromFile(dir + "/shapes.json", shapes));
+    TEST_ASSERT(uml.name == "UML" && uml.items.size() == 6);
+    TEST_ASSERT(pics.items.size() == 10);
+    TEST_ASSERT(!shapes.items.empty());
+
+    Palette p;
+    TEST_ASSERT(!PaletteLoader::LoadFromString("not json", p));
+    TEST_ASSERT(!PaletteLoader::LoadFromString("{\"name\":\"x\"}", p));
+    TEST_ASSERT(PaletteLoader::LoadFromString(
+        "{\"name\":\"P\",\"items\":[{\"shape\":\"TestPluginShape\"},{\"shape\":\"Unknown\"}]}", p));
+    TEST_ASSERT(p.items.size() == 1 && p.items[0].name == "TestPluginShape");
+
+    MockDrawingContext mock;
+    for (const auto& name : factory.GetRegisteredNames()) {
+        auto shape = factory.Create(name);
+        shape->SetPosition(0, 0);
+        shape->SetWidth(80);
+        shape->SetHeight(60);
+        shape->Draw(mock);
+    }
+
+    // Custom shapes survive serialization
+    Document doc;
+    auto note = factory.Create("UmlNoteShape");
+    note->SetText("hi");
+    doc.AddShape(note);
+    doc.AddShape(factory.Create("HeartPictureShape"));
+    Document loaded;
+    TEST_ASSERT(loaded.LoadFromRawData(doc.SaveAsRawData()));
+    TEST_ASSERT(loaded.GetShapes().size() == 2);
+    TEST_ASSERT(loaded.GetShapes()[0]->GetClassName() == "UmlNoteShape");
+    TEST_ASSERT(loaded.GetShapes()[0]->GetText() == "hi");
+    TEST_ASSERT(loaded.GetShapes()[1]->GetClassName() == "HeartPictureShape");
+
+    std::cout << "TestShapeFactoryAndPalettes PASSED!" << std::endl;
+}
+
 int main() {
     std::cout << "=== Running UFMNext Core Unit Tests ===" << std::endl;
     TestShapeProperties();
@@ -322,6 +379,7 @@ int main() {
     TestFastRenderingViewportCulling();
     TestPaperSizeParametrization();
     TestSerializationRawData();
+    TestShapeFactoryAndPalettes();
     std::cout << "=== All Unit Tests Passed Successfully! ===" << std::endl;
     return 0;
 }

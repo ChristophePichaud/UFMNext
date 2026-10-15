@@ -101,3 +101,10 @@ A comprehensive test suite in `tests/test_main.cpp` validates:
 - Fast viewport culling
 - Paper size parametrization
 - Raw Data serialization and deserialization round-trip
+
+## Shape palettes, factory and plugins
+
+- Palettes are JSON files (parsed with [nlohmann json](https://github.com/nlohmann/json)) in `resources/palettes/` (`shapes.json`, `uml.json`, `pictures.json`), copied next to the executable in a `palettes/` folder:
+  `{ "name": "UML", "items": [ { "name": "Class", "shape": "UmlClassShape" } ] }` (line items may add `"startCap"`/`"endCap"`: `None`, `Arrow`, `Dot`).
+- `core::ShapeFactory::Instance().Create("UmlClassShape")` creates any registered shape from its derived class name; `Shape::GetClassName()` returns that name.
+- The **Load Plugin Palette...** button in the Drawing Shapes dock loads a shared library exporting `ufmnext_register_shapes(ShapeFactory&)` and `ufmnext_palette_json()` (see `include/ufmnext/core/PluginApi.h`) and adds its palette.

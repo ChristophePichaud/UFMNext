@@ -405,15 +405,16 @@ void MainWindow::createStatusBar() {
     sb->showMessage(tr("Ready"), 2000);
 }
 
-void MainWindow::onToolChanged(ToolMode mode, core::ShapeType type, core::LineCapStyle startCap, core::LineCapStyle endCap) {
+void MainWindow::onToolChanged(ToolMode mode, core::ShapeType type, core::LineCapStyle startCap, core::LineCapStyle endCap, const QString& shapeClass) {
     if (mode == ToolMode::Select) {
         m_lblStatusTool->setText(tr("Tool: Select"));
     } else {
-        m_lblStatusTool->setText(tr("Tool: %1").arg(core::ShapeTypeToString(type)));
+        m_lblStatusTool->setText(tr("Tool: %1").arg(
+            type == core::ShapeType::Custom ? shapeClass : QString::fromUtf8(core::ShapeTypeToString(type))));
     }
 
     if (auto* c = activeCanvas()) {
-        c->SetTool(mode, type, startCap, endCap);
+        c->SetTool(mode, type, startCap, endCap, shapeClass.toStdString());
     }
 }
 

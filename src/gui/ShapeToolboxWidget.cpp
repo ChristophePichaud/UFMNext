@@ -1,4 +1,16 @@
 #include "ufmnext/gui/ShapeToolboxWidget.h"
+#include "ufmnext/gui/QtDrawingContext.h"
+#include "ufmnext/core/ShapeFactory.h"
+#include "ufmnext/core/PluginApi.h"
+#include <QComboBox>
+#include <QCoreApplication>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QLibrary>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QSignalBlocker>
+#include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPainter>
@@ -22,15 +34,56 @@ void ShapeToolboxWidget::setupUI() {
     header->setStyleSheet("font-weight: bold; font-size: 13px; padding: 4px;");
     mainLayout->addWidget(header);
 
-    m_listWidget = new QListWidget(this);
-    m_listWidget->setViewMode(QListView::IconMode);
-    m_listWidget->setIconSize(QSize(44, 44));
-    m_listWidget->setGridSize(QSize(68, 68));
-    m_listWidget->setResizeMode(QListView::Adjust);
-    m_listWidget->setUniformItemSizes(true);
-    m_listWidget->setMovement(QListView::Static);
-    m_listWidget->setSpacing(4);
-    m_listWidget->setStyleSheet(
+    auto* selectButton = new QPushButton(tr("Select"), this);
+    connect(selectButton, &QPushButton::clicked, this, [this]() {
+        clearSelectionsExcept(nullptr);
+        emit toolChanged(ToolMode::Select, core::ShapeType::None, core::LineCapStyle::None,
+                         core::LineCapStyle::None, QString());
+    });
+    mainLayout->addWidget(selectButton);
+
+    m_paletteCombo = new QComboBox(this);
+    mainLayout->addWidget(m_paletteCombo);
+
+    m_stack = new QStackedWidget(this);
+    mainLayout->addWidget(m_stack, 1);
+    connect(m_paletteCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), m_stack,
+            &QStackedWidget::setCurrentIndex);
+
+    auto* pluginButton = new QPushButton(tr("Load Plugin Palette..."), this);
+    connect(pluginButton, &QPushButton::clicked, this, &ShapeToolboxWidget::onLoadPluginClicked);
+    mainLayout->addWidget(pluginButton);
+
+    loadBuiltInPalettes();
+}
+
+void ShapeToolboxWidget::loadBuiltInPalettes() {
+    QStringList dirs{QCoreApplication::applicationDirPath() + "/palettes"};
+#ifdef UFMNEXT_PALETTES_SOURCE_DIR
+    dirs << QString::fromUtf8(UFMNEXT_PALETTES_SOURCE_DIR);
+#endif
+    for (const char* file : {"shapes.json", "uml.json", "pictures.json"}) {
+        for (const QString& dir : dirs) {
+            const QString path = dir + "/" + file;
+            core::Palette palette;
+            if (QFileInfo::exists(path) && core::PaletteLoader::LoadFromFile(path.toStdString(), palette)) {
+                AddPalette(palette);
+                break;
+            }
+        }
+    }
+}
+
+void ShapeToolboxWidget::AddPalette(const core::Palette& palette) {
+    auto* list = new QListWidget(m_stack);
+    list->setViewMode(QListView::IconMode);
+    list->setIconSize(QSize(44, 44));
+    list->setGridSize(QSize(68, 68));
+    list->setResizeMode(QListView::Adjust);
+    list->setUniformItemSizes(true);
+    list->setMovement(QListView::Static);
+    list->setSpacing(4);
+    list->setStyleSheet(
         "QListWidget {"
         "  border: 1px solid #c0c0c0;"
         "  border-radius: 4px;"
@@ -51,34 +104,73 @@ void ShapeToolboxWidget::setupUI() {
         "}"
     );
 
-    // Populate tools
-    m_tools = {
-        {tr("Select"), ToolMode::Select, core::ShapeType::None, core::LineCapStyle::None, core::LineCapStyle::None},
-        {tr("Square"), ToolMode::CreateShape, core::ShapeType::Square, core::LineCapStyle::None, core::LineCapStyle::None},
-        {tr("Round"), ToolMode::CreateShape, core::ShapeType::RoundRectangle, core::LineCapStyle::None, core::LineCapStyle::None},
-        {tr("Circle"), ToolMode::CreateShape, core::ShapeType::Circle, core::LineCapStyle::None, core::LineCapStyle::None},
-        {tr("Oval"), ToolMode::CreateShape, core::ShapeType::Oval, core::LineCapStyle::None, core::LineCapStyle::None},
-        {tr("Line"), ToolMode::CreateShape, core::ShapeType::Line, core::LineCapStyle::None, core::LineCapStyle::None},
-        {tr("Arrow Line"), ToolMode::CreateShape, core::ShapeType::Line, core::LineCapStyle::None, core::LineCapStyle::Arrow},
-        {tr("Dot Line"), ToolMode::CreateShape, core::ShapeType::Line, core::LineCapStyle::Dot, core::LineCapStyle::Arrow},
-        {tr("Star"), ToolMode::CreateShape, core::ShapeType::Star, core::LineCapStyle::None, core::LineCapStyle::None},
-        {tr("Arrow"), ToolMode::CreateShape, core::ShapeType::Arrow, core::LineCapStyle::None, core::LineCapStyle::None}
-    };
+    PaletteView view;
+    view.list = list;
+    for (const auto& pi : palette.items) {
+        const auto shape = core::ShapeFactory::Instance().Create(pi.shapeClass);
+        if (!shape) continue;
+        ToolItem tool;
+        tool.name = QString::fromStdString(pi.name);
+        tool.mode = ToolMode::CreateShape;
+        tool.shapeType = shape->GetType();
+        tool.startCap = core::StringToLineCapStyle(pi.startCap);
+        tool.endCap = core::StringToLineCapStyle(pi.endCap);
+        tool.shapeClass = QString::fromStdString(pi.shapeClass);
+        view.tools.push_back(tool);
 
-    for (const auto& tool : m_tools) {
-        auto* item = new QListWidgetItem(createShapeIcon(tool), tool.name, m_listWidget);
+        auto* item = new QListWidgetItem(createShapeIcon(tool), tool.name, list);
         item->setTextAlignment(Qt::AlignHCenter | Qt::AlignBottom);
         item->setToolTip(tool.name);
     }
 
-    mainLayout->addWidget(m_listWidget);
+    connect(list, &QListWidget::itemSelectionChanged, this, &ShapeToolboxWidget::onItemSelectionChanged);
 
-    connect(m_listWidget, &QListWidget::itemSelectionChanged, this, &ShapeToolboxWidget::onItemSelectionChanged);
+    m_palettes.push_back(std::move(view));
+    m_stack->addWidget(list);
+    m_paletteCombo->addItem(QString::fromStdString(palette.name));
+}
 
-    // Select first tool (Select)
-    if (m_listWidget->count() > 0) {
-        m_listWidget->setCurrentRow(0);
+void ShapeToolboxWidget::clearSelectionsExcept(QListWidget* keep) {
+    for (auto& pv : m_palettes) {
+        if (pv.list != keep) {
+            const QSignalBlocker blocker(pv.list);
+            pv.list->clearSelection();
+            pv.list->setCurrentItem(nullptr);
+        }
     }
+}
+
+void ShapeToolboxWidget::onLoadPluginClicked() {
+    const QString path = QFileDialog::getOpenFileName(
+        this, tr("Load Plugin Palette"), QString(), tr("Plugins (*.dll *.so *.dylib);;All files (*)"));
+    if (path.isEmpty()) return;
+
+    auto* lib = new QLibrary(path, this);
+    if (!lib->load()) {
+        QMessageBox::warning(this, tr("Plugin"), tr("Cannot load plugin: %1").arg(lib->errorString()));
+        delete lib;
+        return;
+    }
+    const auto registerFn = reinterpret_cast<core::PluginRegisterFn>(lib->resolve(UFMNEXT_PLUGIN_REGISTER_SYMBOL));
+    const auto paletteFn = reinterpret_cast<core::PluginPaletteJsonFn>(lib->resolve(UFMNEXT_PLUGIN_PALETTE_SYMBOL));
+    if (!registerFn || !paletteFn) {
+        QMessageBox::warning(this, tr("Plugin"),
+                             tr("Not a UFMNext shape plugin (missing %1 / %2).")
+                                 .arg(UFMNEXT_PLUGIN_REGISTER_SYMBOL, UFMNEXT_PLUGIN_PALETTE_SYMBOL));
+        lib->unload();
+        delete lib;
+        return;
+    }
+
+    registerFn(core::ShapeFactory::Instance());
+    const char* json = paletteFn();
+    core::Palette palette;
+    if (!json || !core::PaletteLoader::LoadFromString(json, palette)) {
+        QMessageBox::warning(this, tr("Plugin"), tr("The plugin palette description is invalid."));
+        return; // library stays loaded: registered shapes reference its code
+    }
+    AddPalette(palette);
+    m_paletteCombo->setCurrentIndex(m_paletteCombo->count() - 1);
 }
 
 QIcon ShapeToolboxWidget::createShapeIcon(const ToolItem& tool) {
@@ -149,6 +241,19 @@ QIcon ShapeToolboxWidget::createShapeIcon(const ToolItem& tool) {
                 p.drawPolygon(arrow);
                 break;
             }
+            case core::ShapeType::Custom: {
+                auto shape = core::ShapeFactory::Instance().Create(tool.shapeClass.toStdString());
+                if (shape) {
+                    shape->SetPosition(6, 6);
+                    shape->SetWidth(32);
+                    shape->SetHeight(32);
+                    shape->SetText(std::string());
+                    shape->SetStrokeWidth(1.0);
+                    QtDrawingContext ctx(&p);
+                    shape->Draw(ctx);
+                }
+                break;
+            }
             default:
                 break;
         }
@@ -158,24 +263,35 @@ QIcon ShapeToolboxWidget::createShapeIcon(const ToolItem& tool) {
 }
 
 void ShapeToolboxWidget::onItemSelectionChanged() {
-    int row = m_listWidget->currentRow();
-    if (row >= 0 && row < static_cast<int>(m_tools.size())) {
-        const auto& tool = m_tools[row];
-        emit toolChanged(tool.mode, tool.shapeType, tool.startCap, tool.endCap);
+    auto* list = qobject_cast<QListWidget*>(sender());
+    for (const auto& pv : m_palettes) {
+        if (pv.list != list) continue;
+        const int row = list->currentRow();
+        if (row >= 0 && row < static_cast<int>(pv.tools.size())) {
+            clearSelectionsExcept(list);
+            const auto& tool = pv.tools[row];
+            emit toolChanged(tool.mode, tool.shapeType, tool.startCap, tool.endCap, tool.shapeClass);
+        }
+        return;
     }
 }
 
 void ShapeToolboxWidget::SetActiveTool(core::ShapeType type) {
-    for (size_t i = 0; i < m_tools.size(); ++i) {
-        if (m_tools[i].shapeType == type) {
-            m_listWidget->setCurrentRow(static_cast<int>(i));
-            return;
+    for (std::size_t p = 0; p < m_palettes.size(); ++p) {
+        for (std::size_t i = 0; i < m_palettes[p].tools.size(); ++i) {
+            if (m_palettes[p].tools[i].shapeType == type) {
+                m_paletteCombo->setCurrentIndex(static_cast<int>(p));
+                m_palettes[p].list->setCurrentRow(static_cast<int>(i));
+                return;
+            }
         }
     }
 }
 
 void ShapeToolboxWidget::SetSelectTool() {
-    m_listWidget->setCurrentRow(0);
+    clearSelectionsExcept(nullptr);
+    emit toolChanged(ToolMode::Select, core::ShapeType::None, core::LineCapStyle::None,
+                     core::LineCapStyle::None, QString());
 }
 
 } // namespace ufmnext::gui

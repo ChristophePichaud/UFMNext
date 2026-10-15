@@ -1,0 +1,29 @@
+{
+  "name": "UML",
+  "items": [
+    {
+      "name": "Class",
+      "shape": "UmlClassShape"
+    },
+    {
+      "name": "Interface",
+      "shape": "UmlInterfaceShape"
+    },
+    {
+      "name": "Actor",
+      "shape": "UmlActorShape"
+    },
+    {
+      "name": "Use Case",
+      "shape": "UmlUseCaseShape"
+    },
+    {
+      "name": "Note",
+      "shape": "UmlNoteShape"
+    },
+    {
+      "name": "Package",
+      "shape": "UmlPackageShape"
+    }
+  ]
+}

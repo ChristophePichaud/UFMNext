@@ -36,7 +36,7 @@ private slots:
     void setPaperSizeDialog();
     void updateMenusAndToolbars();
     void updateStatusBarCoordinates(const core::Point& pt);
-    void onToolChanged(ToolMode mode, core::ShapeType type, core::LineCapStyle startCap, core::LineCapStyle endCap);
+    void onToolChanged(ToolMode mode, core::ShapeType type, core::LineCapStyle startCap, core::LineCapStyle endCap, const QString& shapeClass);
     void applyTheme(AppTheme theme);
     void about();
 

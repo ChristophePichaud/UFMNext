@@ -23,6 +23,11 @@ public:
     // Type identification
     virtual ShapeType GetType() const = 0;
 
+    // C++ derived class name (e.g. "StarShape"); the key used by ShapeFactory and palette JSON files
+    virtual std::string GetClassName() const {
+        return std::string(ShapeTypeToString(GetType())) + "Shape";
+    }
+
     // Deep clone
     virtual std::unique_ptr<Shape> Clone() const = 0;
 
