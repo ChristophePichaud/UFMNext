@@ -1,0 +1,45 @@
+{
+  "name": "Pictures",
+  "items": [
+    {
+      "name": "House",
+      "shape": "HousePictureShape"
+    },
+    {
+      "name": "Tree",
+      "shape": "TreePictureShape"
+    },
+    {
+      "name": "Sun",
+      "shape": "SunPictureShape"
+    },
+    {
+      "name": "Cloud",
+      "shape": "CloudPictureShape"
+    },
+    {
+      "name": "Moon",
+      "shape": "MoonPictureShape"
+    },
+    {
+      "name": "Heart",
+      "shape": "HeartPictureShape"
+    },
+    {
+      "name": "Flower",
+      "shape": "FlowerPictureShape"
+    },
+    {
+      "name": "Car",
+      "shape": "CarPictureShape"
+    },
+    {
+      "name": "Boat",
+      "shape": "BoatPictureShape"
+    },
+    {
+      "name": "Mountain",
+      "shape": "MountainPictureShape"
+    }
+  ]
+}

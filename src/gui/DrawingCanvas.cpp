@@ -7,6 +7,7 @@
 #include "ufmnext/core/LineShape.h"
 #include "ufmnext/core/StarShape.h"
 #include "ufmnext/core/ArrowShape.h"
+#include "ufmnext/core/ShapeFactory.h"
 
 #include <QPainter>
 #include <QMenu>
@@ -95,8 +96,10 @@ void DrawingCanvas::ZoomToFit() {
     SetZoom(std::min(zoomX, zoomY));
 }
 
-void DrawingCanvas::SetTool(ToolMode mode, core::ShapeType type, core::LineCapStyle startCap, core::LineCapStyle endCap) {
+void DrawingCanvas::SetTool(ToolMode mode, core::ShapeType type, core::LineCapStyle startCap, core::LineCapStyle endCap,
+                            const std::string& shapeClass) {
     m_toolMode = mode;
+    m_createShapeClass = shapeClass;
     m_createShapeType = type;
     m_createStartCap = startCap;
     m_createEndCap = endCap;
@@ -396,6 +399,13 @@ void DrawingCanvas::mousePressEvent(QMouseEvent* event) {
                 newShape = std::make_shared<core::ArrowShape>(docPt.x, docPt.y, 10, 10);
                 break;
             default:
+                // Custom shapes (UML, pictures, plugins) are created by class name
+                newShape = core::ShapeFactory::Instance().Create(m_createShapeClass);
+                if (newShape) {
+                    newShape->SetPosition(docPt.x, docPt.y);
+                    newShape->SetWidth(10);
+                    newShape->SetHeight(10);
+                }
                 break;
         }
 

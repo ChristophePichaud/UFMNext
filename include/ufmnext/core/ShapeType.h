@@ -12,7 +12,8 @@ enum class ShapeType {
     Oval,           // Oval / Ellipse
     Line,           // Line with optional arrow/dot endpoints
     Star,           // 5-Point Star
-    Arrow           // Block Arrow
+    Arrow,          // Block Arrow
+    Custom          // Factory-created shape (UML, pictures, plugins); see Shape::GetClassName()
 };
 
 inline const char* ShapeTypeToString(ShapeType type) {
@@ -24,6 +25,7 @@ inline const char* ShapeTypeToString(ShapeType type) {
         case ShapeType::Line: return "Line";
         case ShapeType::Star: return "Star";
         case ShapeType::Arrow: return "Arrow";
+        case ShapeType::Custom: return "Custom";
         default: return "None";
     }
 }
@@ -36,6 +38,7 @@ inline ShapeType StringToShapeType(const std::string& str) {
     if (str == "Line") return ShapeType::Line;
     if (str == "Star") return ShapeType::Star;
     if (str == "Arrow") return ShapeType::Arrow;
+    if (str == "Custom") return ShapeType::Custom;
     return ShapeType::None;
 }
 

@@ -1,0 +1,45 @@
+{
+  "name": "Shapes",
+  "items": [
+    {
+      "name": "Square",
+      "shape": "SquareShape"
+    },
+    {
+      "name": "Round",
+      "shape": "RoundRectangleShape"
+    },
+    {
+      "name": "Circle",
+      "shape": "CircleShape"
+    },
+    {
+      "name": "Oval",
+      "shape": "OvalShape"
+    },
+    {
+      "name": "Line",
+      "shape": "LineShape"
+    },
+    {
+      "name": "Arrow Line",
+      "shape": "LineShape",
+      "startCap": "None",
+      "endCap": "Arrow"
+    },
+    {
+      "name": "Dot Line",
+      "shape": "LineShape",
+      "startCap": "Dot",
+      "endCap": "Arrow"
+    },
+    {
+      "name": "Star",
+      "shape": "StarShape"
+    },
+    {
+      "name": "Arrow",
+      "shape": "ArrowShape"
+    }
+  ]
+}
