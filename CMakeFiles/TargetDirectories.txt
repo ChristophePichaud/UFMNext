@@ -1,0 +1,8 @@
+C:/Dev/UFMNext/CMakeFiles/ufmnext_core.dir
+C:/Dev/UFMNext/CMakeFiles/UFMNext.dir
+C:/Dev/UFMNext/CMakeFiles/ufmnext_tests.dir
+C:/Dev/UFMNext/CMakeFiles/RUN_TESTS.dir
+C:/Dev/UFMNext/CMakeFiles/ALL_BUILD.dir
+C:/Dev/UFMNext/CMakeFiles/ZERO_CHECK.dir
+C:/Dev/UFMNext/_deps/nlohmann_json-build/CMakeFiles/RUN_TESTS.dir
+C:/Dev/UFMNext/_deps/nlohmann_json-build/CMakeFiles/ALL_BUILD.dir

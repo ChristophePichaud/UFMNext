@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\8b33b6d62843a686ae5e84fbd81b505d\nlohmann_json-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\8b33b6d62843a686ae5e84fbd81b505d\nlohmann_json-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\8b33b6d62843a686ae5e84fbd81b505d\nlohmann_json-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\8b33b6d62843a686ae5e84fbd81b505d\nlohmann_json-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\8b33b6d62843a686ae5e84fbd81b505d\nlohmann_json-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\8b33b6d62843a686ae5e84fbd81b505d\nlohmann_json-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\8b33b6d62843a686ae5e84fbd81b505d\nlohmann_json-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\8b33b6d62843a686ae5e84fbd81b505d\nlohmann_json-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\e669080ac53d012669fe50240049a0cd\nlohmann_json-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\5cb3e586ec41a94df909e70db5cc3b81\nlohmann_json-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Dev\UFMNext\_deps\nlohmann_json-subbuild\CMakeFiles\nlohmann_json-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{FE1394ED-EC91-3425-9ED4-105107227163}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

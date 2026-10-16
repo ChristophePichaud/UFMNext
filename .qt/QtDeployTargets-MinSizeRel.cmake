@@ -1,0 +1,8 @@
+set(__QT_DEPLOY_TARGET_ufmnext_core_FILE C:/Dev/UFMNext/MinSizeRel/ufmnext_core.lib)
+set(__QT_DEPLOY_TARGET_ufmnext_core_TYPE STATIC_LIBRARY)
+set(__QT_DEPLOY_TARGET_UFMNext_FILE C:/Dev/UFMNext/MinSizeRel/UFMNext.exe)
+set(__QT_DEPLOY_TARGET_UFMNext_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_UFMNext_RUNTIME_DLLS C:/QtNew/6.7.3/msvc2019_64/bin/Qt6PrintSupport.dll;C:/QtNew/6.7.3/msvc2019_64/bin/Qt6Widgets.dll;C:/QtNew/6.7.3/msvc2019_64/bin/Qt6Gui.dll;C:/QtNew/6.7.3/msvc2019_64/bin/Qt6Core.dll)
+set(__QT_DEPLOY_TARGET_ufmnext_tests_FILE C:/Dev/UFMNext/MinSizeRel/ufmnext_tests.exe)
+set(__QT_DEPLOY_TARGET_ufmnext_tests_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_ufmnext_tests_RUNTIME_DLLS )

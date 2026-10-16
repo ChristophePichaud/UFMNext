@@ -3,7 +3,7 @@
 
 namespace ufmnext::core {
 
-static constexpr double Pi = 3.14159265358979323846;
+static  double Pi = 3.14159265358979323846;
 
 StarShape::StarShape()
     : Shape()

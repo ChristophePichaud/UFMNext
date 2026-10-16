@@ -14,10 +14,10 @@ struct PaperSize {
     double width{1200.0};
     double height{1400.0};
 
-    constexpr PaperSize() noexcept = default;
-    constexpr PaperSize(double w, double h) noexcept : width(w), height(h) {}
+     PaperSize() noexcept = default;
+     PaperSize(double w, double h) noexcept : width(w), height(h) {}
 
-    constexpr bool operator==(const PaperSize& other) const noexcept {
+     bool operator==(const PaperSize& other) const noexcept {
         return std::abs(width - other.width) < 1e-6 && std::abs(height - other.height) < 1e-6;
     }
 };

@@ -8,18 +8,18 @@ struct Point {
     double x{0.0};
     double y{0.0};
 
-    constexpr Point() noexcept = default;
-    constexpr Point(double inX, double inY) noexcept : x(inX), y(inY) {}
+     Point() noexcept = default;
+     Point(double inX, double inY) noexcept : x(inX), y(inY) {}
 
-    constexpr Point operator+(const Point& other) const noexcept {
+     Point operator+(const Point& other) const noexcept {
         return Point(x + other.x, y + other.y);
     }
 
-    constexpr Point operator-(const Point& other) const noexcept {
+     Point operator-(const Point& other) const noexcept {
         return Point(x - other.x, y - other.y);
     }
 
-    constexpr Point operator*(double scalar) const noexcept {
+     Point operator*(double scalar) const noexcept {
         return Point(x * scalar, y * scalar);
     }
 
@@ -35,11 +35,11 @@ struct Point {
         return *this;
     }
 
-    constexpr bool operator==(const Point& other) const noexcept {
+     bool operator==(const Point& other) const noexcept {
         return std::abs(x - other.x) < 1e-6 && std::abs(y - other.y) < 1e-6;
     }
 
-    constexpr bool operator!=(const Point& other) const noexcept {
+     bool operator!=(const Point& other) const noexcept {
         return !(*this == other);
     }
 

@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/nlohmann_json-populate"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/5cb3e586ec41a94df909e70db5cc3b81/nlohmann_json-populate.rule"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/e669080ac53d012669fe50240049a0cd/nlohmann_json-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-build.rule"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-download.rule"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-install.rule"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-test.rule"
+		},
+		{
+			"file" : "C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"nlohmann_json-populate"
+		],
+		"name" : "nlohmann_json-populate"
+	}
+}

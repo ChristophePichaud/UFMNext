@@ -1,110 +1,165 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="C:\Dev\UFMNext\ufmnext_core_autogen\mocs_compilation_Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\Shape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\SquareShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\RoundRectangleShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\CircleShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\OvalShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\LineShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\StarShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\ArrowShape.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\Tracker.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\Document.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\Serializer.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\ShapeFactory.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\UmlShapes.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\PictureShapes.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\core\Palette.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\ufmnext_core_autogen\mocs_compilation_Release.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\ufmnext_core_autogen\mocs_compilation_MinSizeRel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\ufmnext_core_autogen\mocs_compilation_RelWithDebInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\Point.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\Rect.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\Color.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\ShapeType.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\ConnectionPoint.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\IDrawingContext.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\Shape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\SquareShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\RoundRectangleShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\CircleShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\OvalShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\LineShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\StarShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\ArrowShape.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\Tracker.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\Document.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\Serializer.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\ShapeFactory.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\UmlShapes.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\PictureShapes.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\Palette.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\core\PluginApi.h">
+      <Filter>include\ufmnext\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Dev\UFMNext\CMakeFiles\fafbf6620653b4568fbd35d91966426e\timestamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="C:\Dev\UFMNext\_deps\nlohmann_json-src\nlohmann_json.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Dev\UFMNext\ufmnext_core_autogen\timestamp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{DB8C2005-F688-3458-9705-7AA46C24C499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{0A1DA131-CBE2-335D-A847-37EA95B9A149}</UniqueIdentifier>
+    </Filter>
     <Filter Include="include">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+      <UniqueIdentifier>{E0A852A4-9E93-308E-9129-96DAC3FFE7D1}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\ufmnext">
-      <UniqueIdentifier>{6d8fa9f0-264f-4d6b-95eb-959db9ec39e7}</UniqueIdentifier>
+      <UniqueIdentifier>{1FD478D4-B0BA-3387-A35E-C11BD5D6DDC4}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\ufmnext\core">
-      <UniqueIdentifier>{4e98f029-e853-4eb8-8120-cf7f0ecf62c0}</UniqueIdentifier>
+      <UniqueIdentifier>{D2A72580-0D5D-3FF5-BA64-BDFB667A4119}</UniqueIdentifier>
     </Filter>
     <Filter Include="src">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+      <UniqueIdentifier>{6807E465-B66C-379B-BB57-CB0DCF8EC684}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\core">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <UniqueIdentifier>{21A6D51E-CEB4-3D89-9909-04BA6A9EFC44}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\ufmnext\core\Point.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\Rect.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\Color.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\ShapeType.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\ConnectionPoint.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\IDrawingContext.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\Shape.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\SquareShape.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\RoundRectangleShape.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\CircleShape.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\OvalShape.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\LineShape.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\StarShape.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\ArrowShape.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\Tracker.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\Document.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\core\Serializer.h">
-      <Filter>include\ufmnext\core</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\core\Shape.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\SquareShape.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\RoundRectangleShape.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\CircleShape.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\OvalShape.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\LineShape.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\StarShape.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\ArrowShape.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Tracker.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Document.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\Serializer.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

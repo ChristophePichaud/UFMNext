@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>05-palette-system.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="5-the-palette-system-custom-palette-definition-and-load-palette-feature">5. The Palette System (custom palette definition and &quot;Load Palette&quot; feature)</h1>
+<p>A <strong>palette</strong> is a named list of tools shown in the left toolbox. Each tool creates one kind of shape. Palettes are
+<strong>data</strong> (JSON), not code: adding a tool for an existing shape class requires no recompilation.</p>
+<p>Relevant files:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../include/ufmnext/core/Palette.h">Palette.h</a>, <a href="../src/core/Palette.cpp">Palette.cpp</a></td>
+<td><code>PaletteItem</code>, <code>Palette</code>, <code>PaletteLoader</code> (parse + validate JSON)</td>
+</tr>
+<tr>
+<td><a href="../include/ufmnext/core/ShapeFactory.h">ShapeFactory.h</a></td>
+<td>class name -&gt; shape instance</td>
+</tr>
+<tr>
+<td><a href="../src/gui/ShapeToolboxWidget.cpp">ShapeToolboxWidget.cpp</a></td>
+<td>loads files, builds the UI, loads plugin palettes</td>
+</tr>
+<tr>
+<td><a href="../include/ufmnext/core/PluginApi.h">PluginApi.h</a></td>
+<td>plugin contract</td>
+</tr>
+<tr>
+<td><a href="../resources/palettes">resources/palettes</a></td>
+<td><code>shapes.json</code>, <code>uml.json</code>, <code>pictures.json</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="51-json-file-description">5.1 JSON file description</h2>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&lt;palette display name&gt;&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;items&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span>     <span class="hljs-string">&quot;&lt;tool label&gt;&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span>    <span class="hljs-string">&quot;&lt;registered C++ class name&gt;&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;startCap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;None | Arrow | Dot&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;endCap&quot;</span><span class="hljs-punctuation">:</span>   <span class="hljs-string">&quot;None | Arrow | Dot&quot;</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<h3 id="palette-object">Palette object</h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Required</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td><strong>yes</strong></td>
+<td>Text of the palette in the combo box</td>
+</tr>
+<tr>
+<td><code>items</code></td>
+<td>array of objects</td>
+<td><strong>yes</strong></td>
+<td>Tools, displayed in order</td>
+</tr>
+</tbody>
+</table>
+<h3 id="item-object">Item object</h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shape</code></td>
+<td>string</td>
+<td><strong>yes</strong></td>
+<td>-</td>
+<td>Derived class name as registered in <code>ShapeFactory</code> (<code>&quot;StarShape&quot;</code>, <code>&quot;UmlClassShape&quot;</code>...). Case sensitive</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>no</td>
+<td>value of <code>shape</code></td>
+<td>Label and tooltip under the icon</td>
+</tr>
+<tr>
+<td><code>startCap</code></td>
+<td>string</td>
+<td>no</td>
+<td><code>&quot;&quot;</code> -&gt; <code>None</code></td>
+<td>Only meaningful for <code>LineShape</code>: decoration at the start</td>
+</tr>
+<tr>
+<td><code>endCap</code></td>
+<td>string</td>
+<td>no</td>
+<td><code>&quot;&quot;</code> -&gt; <code>None</code></td>
+<td>Same for the end</td>
+</tr>
+</tbody>
+</table>
+<p>Cap values map through <code>StringToLineCapStyle</code>: <code>&quot;Arrow&quot;</code>, <code>&quot;Dot&quot;</code>, anything else -&gt; <code>None</code>.</p>
+<h3 id="validation-rules-exactly-what-paletteloader-does">Validation rules (exactly what <code>PaletteLoader</code> does)</h3>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text is not valid JSON</td>
+<td><code>false</code> (the <code>nlohmann::json::exception</code> is caught)</td>
+</tr>
+<tr>
+<td>Root is not an object, or <code>name</code> missing / not a string, or <code>items</code> missing / not an array</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td>An item is not an object, or has no string <code>shape</code></td>
+<td><code>false</code> for the <strong>whole</strong> palette</td>
+</tr>
+<tr>
+<td><code>name</code>, <code>startCap</code> or <code>endCap</code> present but not strings</td>
+<td>ignored (defaults used)</td>
+</tr>
+<tr>
+<td><code>shape</code> names a class that is <strong>not registered</strong></td>
+<td>item <strong>skipped silently</strong>, loading continues</td>
+</tr>
+<tr>
+<td>Any failure</td>
+<td><code>outPalette</code> is <strong>left untouched</strong> (the result is built in a local and moved at the end)</td>
+</tr>
+<tr>
+<td>Unknown extra keys</td>
+<td>ignored (forward compatibility)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="52-available-shape-class-names">5.2 Available shape class names</h2>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Class names</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Basic</td>
+<td><code>SquareShape</code>, <code>RoundRectangleShape</code>, <code>CircleShape</code>, <code>OvalShape</code>, <code>LineShape</code>, <code>StarShape</code>, <code>ArrowShape</code></td>
+</tr>
+<tr>
+<td>UML</td>
+<td><code>UmlClassShape</code>, <code>UmlInterfaceShape</code>, <code>UmlActorShape</code>, <code>UmlUseCaseShape</code>, <code>UmlNoteShape</code>, <code>UmlPackageShape</code></td>
+</tr>
+<tr>
+<td>Pictures</td>
+<td><code>HousePictureShape</code>, <code>TreePictureShape</code>, <code>SunPictureShape</code>, <code>CloudPictureShape</code>, <code>MoonPictureShape</code>, <code>HeartPictureShape</code>, <code>FlowerPictureShape</code>, <code>CarPictureShape</code>, <code>BoatPictureShape</code>, <code>MountainPictureShape</code></td>
+</tr>
+</tbody>
+</table>
+<p>At run time the list is <code>ShapeFactory::Instance().GetRegisteredNames()</code>.</p>
+<h2 id="53-sample-palettes-shipped-with-the-application">5.3 Sample palettes shipped with the application</h2>
+<p><a href="../resources/palettes/shapes.json">shapes.json</a> - note that <strong>one class can appear several times with different caps</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Shapes&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;items&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Square&quot;</span><span class="hljs-punctuation">,</span>     <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;SquareShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Round&quot;</span><span class="hljs-punctuation">,</span>      <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;RoundRectangleShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Circle&quot;</span><span class="hljs-punctuation">,</span>     <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;CircleShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Oval&quot;</span><span class="hljs-punctuation">,</span>       <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;OvalShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Line&quot;</span><span class="hljs-punctuation">,</span>       <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;LineShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Arrow Line&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;LineShape&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;startCap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;None&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;endCap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Arrow&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Dot Line&quot;</span><span class="hljs-punctuation">,</span>   <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;LineShape&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;startCap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Dot&quot;</span><span class="hljs-punctuation">,</span>  <span class="hljs-attr">&quot;endCap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Arrow&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Star&quot;</span><span class="hljs-punctuation">,</span>       <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;StarShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Arrow&quot;</span><span class="hljs-punctuation">,</span>      <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ArrowShape&quot;</span> <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<p><a href="../resources/palettes/uml.json">uml.json</a> - six UML tools; <a href="../resources/palettes/pictures.json">pictures.json</a> - ten pictures.</p>
+<h3 id="a-custom-palette-written-from-scratch-flowchartjson">A custom palette written from scratch: <code>flowchart.json</code></h3>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Flowchart&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;items&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Start / End&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;OvalShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Process&quot;</span><span class="hljs-punctuation">,</span>     <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;SquareShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Step&quot;</span><span class="hljs-punctuation">,</span>        <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;RoundRectangleShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Flow&quot;</span><span class="hljs-punctuation">,</span>        <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;LineShape&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;endCap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Arrow&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Link&quot;</span><span class="hljs-punctuation">,</span>        <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;LineShape&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;startCap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Dot&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;endCap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Dot&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Comment&quot;</span><span class="hljs-punctuation">,</span>     <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;UmlNoteShape&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Ghost&quot;</span><span class="hljs-punctuation">,</span>       <span class="hljs-attr">&quot;shape&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;DoesNotExistShape&quot;</span> <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<p>The last item is dropped (class unknown); the palette still loads with 6 tools.</p>
+<p>To show it in the application today: put <code>flowchart.json</code> in <code>resources/palettes</code> and add <code>&quot;flowchart.json&quot;</code> to the list in
+<code>ShapeToolboxWidget::loadBuiltInPalettes()</code> (the file list is compiled in), or build a plugin (5.8) that returns the JSON.</p>
+<h2 id="54-data-model-class-diagram">5.4 Data model (class diagram)</h2>
+<img src="http://www.plantuml.com/plantuml/svg/VPBTQiCm38NlynGYLrct5dPhGYW40eLTbFK1XXPhYOj_WgKMHkcx3xTa94lPfQNZynt9th9Wb9EpMMkH6VPeIOHsGWuk6S2pHqSAMBHIBD7uBXMvnu7gT67PIdur3ei6URqeN-VKVuX6o8smCxKIOZc9MlrrUWkeAK9Pig2OjghkrfVxyGgftyJW3ZT0SUJWNo2Sv4d1PmZseROnbee1fPyfH_0XhQJ1bEmxSOtlB4dm8th7xzGP5egaYpJY15L7Gg6noZr6qX-3nF9cceOR5vI_vh1Qho5VvTEdokPZRpRLxqeLV1bh-O5YbbZ1D62s9Q_Jf_W1" alt="uml diagram"><h2 id="55-the-loading-code-line-by-line">5.5 The loading code, line by line</h2>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">PaletteLoader::LoadFromString</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; json, Palette&amp; outPalette)</span> </span>{
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-type">const</span> <span class="hljs-keyword">auto</span> doc = nlohmann::json::<span class="hljs-built_in">parse</span>(json);               <span class="hljs-comment">// 1. parse: throws on malformed text</span>
+        <span class="hljs-keyword">if</span> (!doc.<span class="hljs-built_in">is_object</span>() || !doc.<span class="hljs-built_in">contains</span>(<span class="hljs-string">&quot;name&quot;</span>) || !doc[<span class="hljs-string">&quot;name&quot;</span>].<span class="hljs-built_in">is_string</span>() ||
+            !doc.<span class="hljs-built_in">contains</span>(<span class="hljs-string">&quot;items&quot;</span>) || !doc[<span class="hljs-string">&quot;items&quot;</span>].<span class="hljs-built_in">is_array</span>()) {   <span class="hljs-comment">// 2. structural validation</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+        Palette result;                                              <span class="hljs-comment">// 3. build in a local: strong exception guarantee</span>
+        result.name = doc[<span class="hljs-string">&quot;name&quot;</span>].<span class="hljs-built_in">get</span>&lt;std::string&gt;();
+        <span class="hljs-type">const</span> <span class="hljs-keyword">auto</span>&amp; factory = ShapeFactory::<span class="hljs-built_in">Instance</span>();
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span>&amp; item : doc[<span class="hljs-string">&quot;items&quot;</span>]) {
+            <span class="hljs-keyword">if</span> (!item.<span class="hljs-built_in">is_object</span>() || !item.<span class="hljs-built_in">contains</span>(<span class="hljs-string">&quot;shape&quot;</span>) || !item[<span class="hljs-string">&quot;shape&quot;</span>].<span class="hljs-built_in">is_string</span>())
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;                                        <span class="hljs-comment">// 4. malformed item rejects the palette</span>
+            PaletteItem pi;
+            pi.shapeClass = item[<span class="hljs-string">&quot;shape&quot;</span>].<span class="hljs-built_in">get</span>&lt;std::string&gt;();
+            pi.name = (item.<span class="hljs-built_in">contains</span>(<span class="hljs-string">&quot;name&quot;</span>) &amp;&amp; item[<span class="hljs-string">&quot;name&quot;</span>].<span class="hljs-built_in">is_string</span>())
+                          ? item[<span class="hljs-string">&quot;name&quot;</span>].<span class="hljs-built_in">get</span>&lt;std::string&gt;() : pi.shapeClass;   <span class="hljs-comment">// 5. default label</span>
+            <span class="hljs-keyword">if</span> (item.<span class="hljs-built_in">contains</span>(<span class="hljs-string">&quot;startCap&quot;</span>) &amp;&amp; item[<span class="hljs-string">&quot;startCap&quot;</span>].<span class="hljs-built_in">is_string</span>()) pi.startCap = item[<span class="hljs-string">&quot;startCap&quot;</span>].<span class="hljs-built_in">get</span>&lt;std::string&gt;();
+            <span class="hljs-keyword">if</span> (item.<span class="hljs-built_in">contains</span>(<span class="hljs-string">&quot;endCap&quot;</span>)   &amp;&amp; item[<span class="hljs-string">&quot;endCap&quot;</span>].<span class="hljs-built_in">is_string</span>())   pi.endCap   = item[<span class="hljs-string">&quot;endCap&quot;</span>].<span class="hljs-built_in">get</span>&lt;std::string&gt;();
+            <span class="hljs-keyword">if</span> (factory.<span class="hljs-built_in">IsRegistered</span>(pi.shapeClass))                 <span class="hljs-comment">// 6. keep only creatable shapes</span>
+                result.items.<span class="hljs-built_in">push_back</span>(std::<span class="hljs-built_in">move</span>(pi));
+        }
+        outPalette = std::<span class="hljs-built_in">move</span>(result);                              <span class="hljs-comment">// 7. commit (all or nothing)</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    } <span class="hljs-built_in">catch</span> (<span class="hljs-type">const</span> nlohmann::json::exception&amp;) {                     <span class="hljs-comment">// 8. no exception escapes to the UI</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+}
+
+<span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">PaletteLoader::LoadFromFile</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; path, Palette&amp; outPalette)</span> </span>{
+    <span class="hljs-function">std::ifstream <span class="hljs-title">in</span><span class="hljs-params">(path)</span></span>;
+    <span class="hljs-keyword">if</span> (!in) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    std::ostringstream ss;
+    ss &lt;&lt; in.<span class="hljs-built_in">rdbuf</span>();                                                <span class="hljs-comment">// read the whole file</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">LoadFromString</span>(ss.<span class="hljs-built_in">str</span>(), outPalette);
+}
+</div></code></pre>
+<p>C++ techniques: RAII (<code>ifstream</code>, <code>ostringstream</code>), exceptions for parse errors at a boundary, move semantics,
+<code>const auto&amp;</code> range-for, commit-at-the-end idiom. See <a href="08-cpp17-teaching-guide.md">08-cpp17-teaching-guide.md</a>.</p>
+<h2 id="56-from-file-to-clickable-tool-sequence">5.6 From file to clickable tool (sequence)</h2>
+<img src="http://www.plantuml.com/plantuml/svg/NLFHRjim37ptLn1zSW0lU_UseaqQ3owyBKjSRC0m18h5nDfaIP1eDC7GVn-eE8tJ5yFM7U-E57qNI7ZgEvquuKaroWb3SBDkXSFQMhsrXnzAxf5kG0IePzUqxuNIM9gTZMXHNg5BeP48AoiaUiQNrNMrqRRjX35v_YTO4oKUhnWnHI4Qilx8wBfuOr-fGADuLPBKCtXt2_KCSj1Mo5clD9LcY1BIIM8i8NYrRoa1aCe7-0I_G3ZteFnxD_0WWwVYozV5ptgplAyMTRrORzRVdbRpnUQXNC7l162dD79ju8nXoXraq7TwU7EgeTuFG8960Xidsbe7E-i1HTD6ZUpoAPM7TATy80Xzqs08yAnCc2G0fxQA4dB0WmeKKYUelI3B2dBWIHVUTdmf4SzWQ8Y9oug9Zv234pvWIdWWFe-HehyYx1A0CtLTG0vbME5U1KAFCeszSWqQEIYUXqs-nzSqyUHUoc7iwIZ5nMq0oxFfgJIQpZqAmfFTN8iGHm2ClVg5LdYK6qV-OzoIMqYTjrlCe0yeuqm_8zL7Xo2C1DLOCndPH0tURxR_PqI7sU0QrJAW8pyRuK863KTuULlTNEXbOqrArkgn1T-8mMSOBIcRfHmb0xQyJ78iQxkjdGef8tcOt3JIFq0WqVnbyAINQXLemjkLtA6H_1V_1m00" alt="uml diagram"><p>Search order: the directory next to the executable first (copied by the CMake post-build step), then the source tree
+(<code>UFMNEXT_PALETTES_SOURCE_DIR</code>, useful when running from the IDE). The first location that loads wins (<code>break</code>).</p>
+<h3 id="what-happens-when-a-tool-is-clicked">What happens when a tool is clicked</h3>
+<img src="http://www.plantuml.com/plantuml/svg/RP7FQiCm3CRlVWeT4-Zw086DqdI3GN8OpSXXtK5pH2lcsC5I_xtziBjrA-nYWN-Vz8bF2r6CkX-TGQiXmgjGD1D6PSiJUeMNXaLx7hQaW0BD3LplSA8k1FSHJh-QRdaZQf5zptu8nmJR_WQk8XxPRslq1vJ4LxL9Ey3T0pHGWNLiFu6LHYXYE0ANfaciMqALlzVao2e7N-_GRsamtVBAWt_-Hr6K5MW83kvpaJT-_zja7M6yziZZoTAaXMFHyblMzb01ZQov_sTg7GcLSY8pq7DwSxOrJZCWF-Gg2TSEHKhJzcdOgeOArgGfnM8-dvV61oK81ueNvkcaC8Qz44oHHC1c8zduxFMKxtQkgej_ySTXuuiGeM5_sGgEh3kmE4bf5kI7TFGl" alt="uml diagram"><h2 id="57-using-the-loader-from-your-own-code">5.7 Using the loader from your own code</h2>
+<p>Load a file:</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;ufmnext/core/Palette.h&quot;</span></span>
+
+ufmnext::core::Palette palette;
+<span class="hljs-keyword">if</span> (ufmnext::core::PaletteLoader::<span class="hljs-built_in">LoadFromFile</span>(<span class="hljs-string">&quot;flowchart.json&quot;</span>, palette)) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span>&amp; item : palette.items)
+        std::cout &lt;&lt; item.name &lt;&lt; <span class="hljs-string">&quot; -&gt; &quot;</span> &lt;&lt; item.shapeClass &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;
+} <span class="hljs-keyword">else</span> {
+    std::cerr &lt;&lt; <span class="hljs-string">&quot;invalid palette\n&quot;</span>;
+}
+</div></code></pre>
+<p>Load from a string and add it to the toolbox:</p>
+<pre class="hljs"><code><div><span class="hljs-type">const</span> std::string json = <span class="hljs-string">R&quot;({&quot;name&quot;:&quot;Mine&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Dash&quot;,&quot;shape&quot;:&quot;LineShape&quot;,&quot;endCap&quot;:&quot;Arrow&quot;}]})&quot;</span>;
+ufmnext::core::Palette p;
+<span class="hljs-keyword">if</span> (ufmnext::core::PaletteLoader::<span class="hljs-built_in">LoadFromString</span>(json, p)) {
+    toolbox-&gt;<span class="hljs-built_in">AddPalette</span>(p);                 <span class="hljs-comment">// ShapeToolboxWidget*</span>
+}
+</div></code></pre>
+<p>Create a shape from a palette item (what the canvas does):</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">auto</span> shape = ufmnext::core::ShapeFactory::<span class="hljs-built_in">Instance</span>().<span class="hljs-built_in">Create</span>(item.shapeClass);
+<span class="hljs-keyword">if</span> (shape) {
+    shape-&gt;<span class="hljs-built_in">SetPosition</span>(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>);
+    document.<span class="hljs-built_in">AddShape</span>(shape);
+}
+</div></code></pre>
+<p>Unit-test style check (core only, no Qt):</p>
+<pre class="hljs"><code><div>ufmnext::core::Palette p;
+<span class="hljs-built_in">assert</span>(!PaletteLoader::<span class="hljs-built_in">LoadFromString</span>(<span class="hljs-string">&quot;{not json&quot;</span>, p));                         <span class="hljs-comment">// malformed</span>
+<span class="hljs-built_in">assert</span>(!PaletteLoader::<span class="hljs-built_in">LoadFromString</span>(<span class="hljs-string">R&quot;({&quot;name&quot;:&quot;x&quot;})&quot;</span>, p));                   <span class="hljs-comment">// no items</span>
+<span class="hljs-built_in">assert</span>( PaletteLoader::<span class="hljs-built_in">LoadFromString</span>(<span class="hljs-string">R&quot;({&quot;name&quot;:&quot;x&quot;,&quot;items&quot;:[{&quot;shape&quot;:&quot;Nope&quot;}]})&quot;</span>, p)
+        &amp;&amp; p.items.<span class="hljs-built_in">empty</span>());                                                    <span class="hljs-comment">// unknown class skipped</span>
+</div></code></pre>
+<h2 id="58-plugin-palettes">5.8 Plugin palettes</h2>
+<p>The button <strong>Load Plugin Palette...</strong> loads a shared library (<code>.dll</code>, <code>.so</code>, <code>.dylib</code>) with <code>QLibrary</code>.
+The plugin must be built with the same compiler and C++ runtime as UFMNext, because <code>Shape</code> objects and
+<code>std::shared_ptr</code> cross the DLL boundary.</p>
+<p>Contract (<a href="../include/ufmnext/core/PluginApi.h">PluginApi.h</a>):</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> <span class="hljs-function"><span class="hljs-type">void</span>        <span class="hljs-title">ufmnext_register_shapes</span><span class="hljs-params">(ufmnext::core::ShapeFactory&amp; factory)</span></span>;
+<span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> <span class="hljs-function"><span class="hljs-type">const</span> <span class="hljs-type">char</span>* <span class="hljs-title">ufmnext_palette_json</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+<h3 id="complete-plugin-example">Complete plugin example</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// triangle_plugin.cpp</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;ufmnext/core/PluginApi.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;ufmnext/core/Shape.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span>
+
+<span class="hljs-keyword">namespace</span> {
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">TriangleShape</span> : <span class="hljs-keyword">public</span> ufmnext::core::Shape {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Draw</span><span class="hljs-params">(ufmnext::core::IDrawingContext&amp; ctx)</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>{
+        <span class="hljs-keyword">if</span> (!m_visible) <span class="hljs-keyword">return</span>;
+        <span class="hljs-type">const</span> <span class="hljs-keyword">auto</span> b = <span class="hljs-built_in">GetBoundingBox</span>();
+        ctx.<span class="hljs-built_in">DrawPolygon</span>({ {b.x + b.width / <span class="hljs-number">2</span>, b.y}, {b.<span class="hljs-built_in">Right</span>(), b.<span class="hljs-built_in">Bottom</span>()}, {b.x, b.<span class="hljs-built_in">Bottom</span>()} },
+                        m_outlineColor, m_strokeWidth, m_fillEnabled, m_fillColor);
+        <span class="hljs-built_in">DrawTextContent</span>(ctx, b);
+    }
+    ufmnext::<span class="hljs-function">core::ShapeType <span class="hljs-title">GetType</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>{ <span class="hljs-keyword">return</span> ufmnext::core::ShapeType::Custom; }
+    <span class="hljs-function">std::string <span class="hljs-title">GetClassName</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;TriangleShape&quot;</span>; }
+    <span class="hljs-function">std::unique_ptr&lt;ufmnext::core::Shape&gt; <span class="hljs-title">Clone</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>{
+        <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">make_unique</span>&lt;TriangleShape&gt;(*<span class="hljs-keyword">this</span>);
+    }
+};
+}
+
+<span class="hljs-function">UFMNEXT_PLUGIN_EXPORT <span class="hljs-type">void</span> <span class="hljs-title">ufmnext_register_shapes</span><span class="hljs-params">(ufmnext::core::ShapeFactory&amp; factory)</span> </span>{
+    factory.<span class="hljs-built_in">Register</span>(<span class="hljs-string">&quot;TriangleShape&quot;</span>, [] { <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">make_shared</span>&lt;TriangleShape&gt;(); });
+}
+
+<span class="hljs-function">UFMNEXT_PLUGIN_EXPORT <span class="hljs-type">const</span> <span class="hljs-type">char</span>* <span class="hljs-title">ufmnext_palette_json</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">R&quot;({ &quot;name&quot;: &quot;Triangles&quot;, &quot;items&quot;: [ { &quot;name&quot;: &quot;Triangle&quot;, &quot;shape&quot;: &quot;TriangleShape&quot; } ] })&quot;</span>;
+}
+</div></code></pre>
+<p>Important: the plugin must return <code>ShapeType::Custom</code> and a unique <code>GetClassName()</code> so that the file serializer writes
+<code>class TriangleShape</code> and can recreate it (if the plugin is not loaded when the file is opened, the shape becomes a square).</p>
+<h3 id="plugin-loading-algorithm-onloadpluginclicked">Plugin loading algorithm (<code>onLoadPluginClicked</code>)</h3>
+<img src="http://www.plantuml.com/plantuml/svg/TPBHQjn034NVvoik-sJ_WarfIi5GI4DBwLjXqNfahy9OOqPo4lzziRsXT25lGYDfphtIWpaLNwOKzY0qdIH654fvR8CCg6RoAtYQVVrSmw-ig5QsEW3cUGwiKORG_7oKIw6oDatA5AlwwDrY32I9utrpyqf5HKUSlf9gTkorSrf6qLFxt-p2bjCBOnacvJS_5nx5dClPhZIp_T7xWfaIk_FvsR8U8AGhR9qkEM4ICz7nOvwdx23yxhu_yPjZ_-CVLxFe1deFU01rMltQoZlgFMzUV5Dpqfwhkcv3i-7W4svqdRwxjETrIGcvuCVn-fWfSjcziuzHRwCGsVeYiqjMY47qXPB4Kni0pSueCbwzGJfs17DQRJUS8oxSqsAykNYeu7Y8DXGUkB3s3753doFVRVrBZ3VUweQowJHEtFl63ENNTxqGtLDzdYwv3VkO1zQutTvV" alt="uml diagram"><p>Order matters: <code>Register</code> is called <strong>before</strong> the JSON is parsed, otherwise <code>PaletteLoader</code> would skip the plugin's classes as unregistered.</p>
+<h2 id="59-troubleshooting">5.9 Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Palette missing from combo</td>
+<td>File not found in either search folder, or invalid JSON / missing <code>shape</code> key. Not listed in <code>loadBuiltInPalettes</code></td>
+</tr>
+<tr>
+<td>Tool missing from a palette</td>
+<td>Class name misspelled or not registered (silently skipped)</td>
+</tr>
+<tr>
+<td>Arrow not displayed</td>
+<td><code>startCap</code>/<code>endCap</code> used on a non-line shape (ignored), or misspelled value (becomes <code>None</code>)</td>
+</tr>
+<tr>
+<td>Edits to JSON not visible</td>
+<td>The copy next to the executable wins; rebuild (post-build copy) or edit that copy</td>
+</tr>
+<tr>
+<td>Plugin crash</td>
+<td>Different compiler/runtime than the application</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

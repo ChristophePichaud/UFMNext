@@ -1,0 +1,14 @@
+# Target labels
+ nlohmann_json-populate
+# Source files and their labels
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/nlohmann_json-populate
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/5cb3e586ec41a94df909e70db5cc3b81/nlohmann_json-populate.rule
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/e669080ac53d012669fe50240049a0cd/nlohmann_json-populate-complete.rule
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-build.rule
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-configure.rule
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-download.rule
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-install.rule
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-mkdir.rule
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-patch.rule
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-test.rule
+C:/Dev/UFMNext/_deps/nlohmann_json-subbuild/CMakeFiles/8b33b6d62843a686ae5e84fbd81b505d/nlohmann_json-populate-update.rule

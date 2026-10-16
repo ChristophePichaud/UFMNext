@@ -8,8 +8,8 @@ namespace ufmnext::core {
 
 namespace {
 
-constexpr double Pi = 3.14159265358979323846;
-constexpr LineCapStyle kNone = LineCapStyle::None;
+ double Pi = 3.14159265358979323846;
+ LineCapStyle kNone = LineCapStyle::None;
 
 // Draws in a unit square mapped onto the shape bounds
 struct Canvas {
@@ -40,11 +40,11 @@ struct Canvas {
     }
 };
 
-constexpr Color kBrown{150, 100, 60, 255};
-constexpr Color kLeaf{70, 170, 90, 255};
-constexpr Color kSky{150, 205, 245, 255};
-constexpr Color kSun{255, 205, 40, 255};
-constexpr Color kPink{240, 110, 150, 255};
+ Color kBrown{150, 100, 60, 255};
+ Color kLeaf{70, 170, 90, 255};
+ Color kSky{150, 205, 245, 255};
+ Color kSun{255, 205, 40, 255};
+ Color kPink{240, 110, 150, 255};
 
 } // namespace
 

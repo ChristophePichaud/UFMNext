@@ -74,6 +74,7 @@ Every shape contains:
 ```bash
 # Configure
 cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake -DCMAKE_PREFIX_PATH="C:\QtNew\6.7.3\msvc2019_64\lib\cmake"
 
 # Build
 cmake --build build

@@ -20,8 +20,8 @@ struct ConnectionPoint {
     Point normal{0.0, 0.0}; // outward unit normal
     AnchorLocation location{AnchorLocation::Center};
 
-    constexpr ConnectionPoint() noexcept = default;
-    constexpr ConnectionPoint(int idx, uint64_t ownerId, Point pos, Point norm, AnchorLocation loc) noexcept
+     ConnectionPoint() noexcept = default;
+     ConnectionPoint(int idx, uint64_t ownerId, Point pos, Point norm, AnchorLocation loc) noexcept
         : index(idx), ownerShapeId(ownerId), position(pos), normal(norm), location(loc) {}
 };
 

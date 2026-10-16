@@ -1,65 +1,90 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="C:\Dev\UFMNext\UFMNext_autogen\mocs_compilation_Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\gui\QtDrawingContext.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\gui\ShapeToolboxWidget.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\gui\DrawingCanvas.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\gui\MdiChild.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\gui\ThemeManager.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\gui\MainWindow.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\src\gui\main.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\UFMNext_autogen\mocs_compilation_Release.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\UFMNext_autogen\mocs_compilation_MinSizeRel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\UFMNext\UFMNext_autogen\mocs_compilation_RelWithDebInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\gui\QtDrawingContext.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\gui\ShapeToolboxWidget.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\gui\DrawingCanvas.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\gui\MdiChild.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\gui\ThemeManager.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\UFMNext\include\ufmnext\gui\MainWindow.h">
+      <Filter>include\ufmnext\gui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Dev\UFMNext\CMakeFiles\64508499004af2a7abe9941e087ce6dd\timestamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Dev\UFMNext\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Dev\UFMNext\UFMNext_autogen\timestamp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{DB8C2005-F688-3458-9705-7AA46C24C499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{0A1DA131-CBE2-335D-A847-37EA95B9A149}</UniqueIdentifier>
+    </Filter>
     <Filter Include="include">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+      <UniqueIdentifier>{E0A852A4-9E93-308E-9129-96DAC3FFE7D1}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\ufmnext">
-      <UniqueIdentifier>{6d8fa9f0-264f-4d6b-95eb-959db9ec39e7}</UniqueIdentifier>
+      <UniqueIdentifier>{1FD478D4-B0BA-3387-A35E-C11BD5D6DDC4}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\ufmnext\gui">
-      <UniqueIdentifier>{7f1a34b1-8b22-4d1e-9821-2a135a58c14a}</UniqueIdentifier>
+      <UniqueIdentifier>{5BFFF361-9E83-3902-BAA5-F4D809637097}</UniqueIdentifier>
     </Filter>
     <Filter Include="src">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+      <UniqueIdentifier>{6807E465-B66C-379B-BB57-CB0DCF8EC684}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\gui">
-      <UniqueIdentifier>{9a77b81c-8e42-4f3e-827c-31a4732db441}</UniqueIdentifier>
+      <UniqueIdentifier>{F1F446BB-4BDE-3E31-926E-BCAD4C6B5FAC}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\ufmnext\gui\DrawingCanvas.h">
-      <Filter>include\ufmnext\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\gui\MainWindow.h">
-      <Filter>include\ufmnext\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\gui\MdiChild.h">
-      <Filter>include\ufmnext\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\gui\QtDrawingContext.h">
-      <Filter>include\ufmnext\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\gui\ShapeToolboxWidget.h">
-      <Filter>include\ufmnext\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ufmnext\gui\ThemeManager.h">
-      <Filter>include\ufmnext\gui</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\gui\DrawingCanvas.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\MainWindow.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\MdiChild.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\QtDrawingContext.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\ShapeToolboxWidget.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\ThemeManager.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\main.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -39,7 +39,7 @@ struct SnapResult {
 
 class Tracker {
 public:
-    static constexpr double DefaultHandleSize = 8.0;
+    static inline double DefaultHandleSize = 8.0;
 
     static std::vector<TrackerHandle> GetHandles(const Shape& shape, double handleSize = DefaultHandleSize);
     static HandleId HitTestHandle(const Shape& shape, const Point& pt, double handleSize = DefaultHandleSize);
