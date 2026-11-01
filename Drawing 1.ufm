@@ -1,0 +1,241 @@
+# UFMNext Raw Drawing Data v1.0
+paper_width 1200
+paper_height 1400
+shape_count 12
+
+begin_shape
+type Square
+id 1
+x 90.0078
+y 76.9453
+width 93.9414
+height 76.7695
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+end_shape
+
+begin_shape
+type Custom
+class UmlInterfaceShape
+id 2
+x 280.52
+y 114.66
+width 152.043
+height 120.246
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+end_shape
+
+begin_shape
+type Custom
+class HeartPictureShape
+id 3
+x 483.363
+y 64.9375
+width 121.938
+height 106.633
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+end_shape
+
+begin_shape
+type RoundRectangle
+id 4
+x 55.1328
+y 243
+width 131.512
+height 87.8125
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+corner_radius 15
+end_shape
+
+begin_shape
+type Circle
+id 5
+x 318.449
+y 298.887
+width 102.918
+height 94.457
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+end_shape
+
+begin_shape
+type Line
+id 6
+x 183.949
+y 115.33
+width 96.5703
+height 59.4531
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+start_cap Dot
+end_cap Arrow
+start_connected_id 1
+start_anchor_idx 1
+end_connected_id 2
+end_anchor_idx 3
+end_shape
+
+begin_shape
+type Line
+id 7
+x 186.645
+y 286.906
+width 169.896
+height -52
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+start_cap None
+end_cap Arrow
+start_connected_id 4
+start_anchor_idx 1
+end_connected_id 2
+end_anchor_idx 2
+end_shape
+
+begin_shape
+type Custom
+class UmlClassShape
+id 8
+x 110.801
+y 425.879
+width 138.152
+height 107.551
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+end_shape
+
+begin_shape
+type Custom
+class UmlNoteShape
+id 9
+x 372.824
+y 464.164
+width 84.0547
+height 48.9688
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+end_shape
+
+begin_shape
+type Custom
+class UmlPackageShape
+id 10
+x 511.566
+y 381.637
+width 161.09
+height 101.637
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+end_shape
+
+begin_shape
+type Custom
+class UmlActorShape
+id 11
+x 640.902
+y 217.707
+width 78.9062
+height 97.4727
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+end_shape
+
+begin_shape
+type Custom
+class UmlUseCaseShape
+id 12
+x 737.945
+y 383.918
+width 95.0938
+height 86.3984
+color #FF000000
+outline_color #FF343A40
+fill_color #FFCCE5FF
+fill_enabled 1
+visible 1
+font_size 14
+font_color #FF000000
+stroke_width 2
+text 
+end_shape
+
